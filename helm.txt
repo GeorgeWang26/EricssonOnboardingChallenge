@@ -1,4 +1,11 @@
-changed values.yaml
+helm create CHART
 
-helm install hello-helm ./hello-helm
-raise error
+edit values.yaml:
+    image.repository
+    image.tag
+    service.type
+    service.port
+
+helm install NAME CHART/ --values CHART/values.yaml
+
+helm uninstall NAME
