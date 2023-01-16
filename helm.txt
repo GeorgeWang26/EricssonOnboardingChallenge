@@ -6,6 +6,6 @@ edit values.yaml:
     service.type
     service.port
 
-helm install NAME CHART/ --values CHART/values.yaml
+helm install NAME CHART/ --values CHART/values.yaml --debug --dry-run
 
 helm uninstall NAME
