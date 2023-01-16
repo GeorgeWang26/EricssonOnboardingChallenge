@@ -1,0 +1,28 @@
+minikube start
+
+kubectl create deploy hello-app --image=gcr.io/google-samples/hello-app:2.0
+kubectl expose deployment hello-app --type=NodePort --port=8080
+
+kubectl apply -f combine.yml
+kubectl delete -f combine.yml
+
+
+
+with minikube:
+no external ip & "curl $(minikube ip):<node_port>" dont work
+need to use "minikube service hello-app" instead
+
+
+with docker desktop:
+still dont have external ip
+but can use "curl localhost:<node_port>"
+
+
+
+
+https://stackoverflow.com/questions/59998627/how-to-find-out-the-ip-address-of-the-nodeport
+(1) If you don't see any EXTERNAL-IP, it may mean that your Kubernetes nodes do not have external IPs, so you just can't access them from outside.
+(2) If you run minikube, you can check node ip with the minikube ip command. If you run Docker Desktop Kubernetes, then node ip is localhost.
+
+(1) makes sense, and it makes docker desktop behaviour very weird. Why can I still access the service when the node don't have external ip.
+What end up working is to fake node ip with localhost, but why does it work?

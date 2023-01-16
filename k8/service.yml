@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-app-service
+spec:
+  type: NodePort
+  # When the node receives a request on the static port (30163)
+  # select pods with the label 'app' set to 'hello-app'
+  # and forward the request to one of them
+  selector:
+    app: hello-app
+  ports:
+    # Three types of ports for a service
+    # nodePort - access service via this external port
+    # port - port exposed internally in the cluster
+    # targetPort - forward request on port to actual endpoint (same as port by default)
+    - nodePort: 31234
+      port: 8080
+      targetPort: 8080

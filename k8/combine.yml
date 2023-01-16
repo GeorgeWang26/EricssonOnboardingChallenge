@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hello-app-deployment
+  labels:
+    app: hello-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-app
+  template:
+    metadata:
+      labels:
+        app: hello-app
+    spec:
+      containers:
+      - name: hello-app
+        image: gcr.io/google-samples/hello-app:2.0
+        ports:
+        - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-app-service
+spec:
+  type: NodePort
+  # When the node receives a request on the static port (31234)
+  # select pods with the label 'app' set to 'hello-app'
+  # and forward the request to one of them
+  selector:
+    app: hello-app
+  ports:
+    # Three types of ports for a service
+    # nodePort - access service via this external port
+    # port - port exposed internally in the cluster
+    # targetPort - forward request on port to actual endpoint (same as port by default)
+    - nodePort: 31234
+      port: 8080
+      targetPort: 8080
