@@ -1,5 +1,4 @@
 changed values.yaml
 
 helm install hello-helm ./hello-helm
-
-raise "<.Values.service.port>: nil pointer evaluating interface {}.port"
+raise error
